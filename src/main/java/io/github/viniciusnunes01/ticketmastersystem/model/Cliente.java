@@ -14,6 +14,10 @@ public class Cliente {
 	public Cliente(String cpf, LocalDate dataNascimento, String telefone, String email, Endereco endereco) {
 		super();
 		this.cpf = cpf;
+
+		if (dataNascimento.isAfter(LocalDate.now())) {
+			throw new IllegalArgumentException("A data de nascimento não pode ser futura.");
+		}
 		this.dataNascimento = dataNascimento;
 		this.telefone = telefone;
 		this.email = email;
