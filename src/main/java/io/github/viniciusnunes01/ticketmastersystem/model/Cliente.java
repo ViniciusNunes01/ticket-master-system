@@ -1,7 +1,6 @@
 package io.github.viniciusnunes01.ticketmastersystem.model;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 public class Cliente {
 
