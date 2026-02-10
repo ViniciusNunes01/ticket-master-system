@@ -9,22 +9,19 @@ public class Cliente {
 	private LocalDate dataNascimento;
 	private String telefone;
 	private String email;
-	private String endereco;
-	private String cidade;
-	private String estado;
-	private String pais;
+	private Endereco endereco;
 
-	public Cliente(String cpf, LocalDate dataNascimento, String telefone, String email, String endereco, String cidade,
-			String estado, String pais) {
+	public Cliente(String cpf, LocalDate dataNascimento, String telefone, String email, Endereco endereco) {
 		super();
 		this.cpf = cpf;
 		this.dataNascimento = dataNascimento;
 		this.telefone = telefone;
 		this.email = email;
+
+		if (endereco == null) {
+			throw new IllegalArgumentException("É necessário um endereço para o cliente");
+		}
 		this.endereco = endereco;
-		this.cidade = cidade;
-		this.estado = estado;
-		this.pais = pais;
 	}
 
 	public Integer getIdCliente() {
@@ -67,35 +64,12 @@ public class Cliente {
 		this.email = email;
 	}
 
-	public String getEndereco() {
+	public Endereco getEndereco() {
 		return endereco;
 	}
 
-	public void setEndereco(String endereco) {
+	public void setEndereco(Endereco endereco) {
 		this.endereco = endereco;
 	}
 
-	public String getCidade() {
-		return cidade;
-	}
-
-	public void setCidade(String cidade) {
-		this.cidade = cidade;
-	}
-
-	public String getEstado() {
-		return estado;
-	}
-
-	public void setEstado(String estado) {
-		this.estado = estado;
-	}
-
-	public String getPais() {
-		return pais;
-	}
-
-	public void setPais(String pais) {
-		this.pais = pais;
-	}
 }
