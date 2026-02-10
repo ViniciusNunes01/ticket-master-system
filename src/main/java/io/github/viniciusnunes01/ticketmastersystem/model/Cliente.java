@@ -2,14 +2,33 @@ package io.github.viniciusnunes01.ticketmastersystem.model;
 
 import java.time.LocalDate;
 
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
+
+@Entity
 public class Cliente {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer idCliente;
+
 	private String cpf;
 	private LocalDate dataNascimento;
 	private String telefone;
 	private String email;
+
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "id_endereco")
 	private Endereco endereco;
+
+	public Cliente() {
+
+	}
 
 	public Cliente(String cpf, LocalDate dataNascimento, String telefone, String email, Endereco endereco) {
 		super();

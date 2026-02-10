@@ -3,14 +3,27 @@ package io.github.viniciusnunes01.ticketmastersystem.model;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
+@Entity
 public class Evento {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer idEvento;
+
 	private String nome;
 	private LocalDateTime data;
 	private Integer capacidadeMaxima;
 	private Integer ingressosRestantes;
 	private BigDecimal precoBase;
+
+	public Evento() {
+
+	}
 
 	public Evento(String nome, LocalDateTime data, Integer capacidadeMaxima, BigDecimal precoBase) {
 		super();

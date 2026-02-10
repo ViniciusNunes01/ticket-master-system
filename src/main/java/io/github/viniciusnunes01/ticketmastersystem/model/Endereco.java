@@ -1,14 +1,32 @@
 package io.github.viniciusnunes01.ticketmastersystem.model;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+
+@Entity
 public class Endereco {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer idEndereco;
+
 	private String logradouro;
 	private String numero;
 	private String bairro;
 	private String cep;
 	private String complemento;
+
+	@ManyToOne
+	@JoinColumn(name = "id_cidade")
 	private Cidade cidade;
+
+	public Endereco() {
+
+	}
 
 	public Endereco(String logradouro, String numero, String bairro, String cep, String complemento, Cidade cidade) {
 		super();
@@ -16,12 +34,12 @@ public class Endereco {
 		this.numero = numero;
 		this.bairro = bairro;
 		this.cep = cep.replace("-", "");
-		if(this.cep.length() != 8) {
+		if (this.cep.length() != 8) {
 			throw new IllegalArgumentException("O CEP deve conter 8 dígitos.");
 		}
 		this.complemento = complemento;
-		
-		if(cidade == null) {
+
+		if (cidade == null) {
 			throw new IllegalArgumentException("É necessário uma cidade para esse endereço");
 		}
 		this.cidade = cidade;
