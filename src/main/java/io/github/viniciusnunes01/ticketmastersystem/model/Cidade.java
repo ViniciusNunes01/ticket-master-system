@@ -17,7 +17,7 @@ public class Cidade {
 	private String nome;
 
 	@ManyToOne
-	@JoinColumn(name = "id_estado")
+	@JoinColumn(name = "id_estado", nullable = false)
 	private Estado estado;
 
 	public Cidade() {
@@ -35,6 +35,10 @@ public class Cidade {
 	}
 
 	public String getNomeComEstado() {
+		if (this.estado == null) {
+			return this.nome;
+		}
+
 		return this.nome + " - " + this.estado.getSigla();
 	}
 

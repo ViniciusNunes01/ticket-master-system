@@ -17,6 +17,7 @@ public class Cliente {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer idCliente;
 
+	private String nome;
 	private String cpf;
 	private LocalDate dataNascimento;
 	private String telefone;
@@ -30,8 +31,10 @@ public class Cliente {
 
 	}
 
-	public Cliente(String cpf, LocalDate dataNascimento, String telefone, String email, Endereco endereco) {
+	public Cliente(String nome, String cpf, LocalDate dataNascimento, String telefone, String email,
+			Endereco endereco) {
 		super();
+		this.nome = nome;
 		this.cpf = cpf;
 
 		if (dataNascimento.isAfter(LocalDate.now())) {
@@ -53,6 +56,14 @@ public class Cliente {
 
 	public void setIdCliente(Integer idCliente) {
 		this.idCliente = idCliente;
+	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
 
 	public String getCpf() {
