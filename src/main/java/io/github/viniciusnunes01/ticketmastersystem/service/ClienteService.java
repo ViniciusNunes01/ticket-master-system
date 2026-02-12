@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import io.github.viniciusnunes01.ticketmastersystem.exception.ResourceNotFoundException;
 import io.github.viniciusnunes01.ticketmastersystem.model.Cliente;
 import io.github.viniciusnunes01.ticketmastersystem.repository.ClienteRepository;
 
@@ -22,6 +23,10 @@ public class ClienteService {
 
 	public List<Cliente> listarTodos() {
 		return clienteRepository.findAll();
+	}
+
+	public Cliente buscarPorId(Integer id) {
+		return clienteRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Cliente não encontrado!"));
 	}
 
 }
