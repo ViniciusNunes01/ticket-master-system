@@ -6,4 +6,6 @@ import io.github.viniciusnunes01.ticketmastersystem.model.Cidade;
 
 public interface CidadeRepository extends JpaRepository<Cidade, Integer> {
 
+	Cidade findByNome(String cidade);
+
 }

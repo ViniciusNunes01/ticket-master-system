@@ -2,6 +2,7 @@ package io.github.viniciusnunes01.ticketmastersystem.controller;
 
 import java.util.List;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -10,11 +11,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import io.github.viniciusnunes01.ticketmastersystem.model.Cliente;
+import io.github.viniciusnunes01.ticketmastersystem.dto.ClienteDTO;
 import io.github.viniciusnunes01.ticketmastersystem.service.ClienteService;
 
 @RestController
-@RequestMapping("/cliente")
+@RequestMapping("/api/clientes")
 public class ClienteController {
 
 	private final ClienteService clienteService;
@@ -24,20 +25,19 @@ public class ClienteController {
 	}
 
 	@PostMapping
-	public Cliente cadastrarCliente(@RequestBody Cliente cliente) {
-		return clienteService.salvar(cliente);
+	public ResponseEntity<ClienteDTO> cadastrarCliente(@RequestBody ClienteDTO clienteDTO) {
+		ClienteDTO novoCliente = clienteService.salvar(clienteDTO);
+		return ResponseEntity.status(HttpStatus.CREATED).body(novoCliente);
 	}
 
 	@GetMapping
-	public List<Cliente> listarCliente() {
-		return clienteService.listarTodos();
+	public ResponseEntity<List<ClienteDTO>> listarCliente() {
+		return ResponseEntity.ok(clienteService.listarTodos());
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<Cliente> buscarPorId(@PathVariable Integer id) {
-
-		Cliente ingresso = clienteService.buscarPorId(id);
-		return ResponseEntity.ok(ingresso);
-
+	public ResponseEntity<ClienteDTO> buscarPorId(@PathVariable Integer id) {
+		ClienteDTO dto = clienteService.buscarPorId(id);
+		return ResponseEntity.ok(dto);
 	}
 }
