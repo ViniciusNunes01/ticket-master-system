@@ -33,13 +33,20 @@ public class CargaDeDados {
         return args -> {
             if (paisRepository.count() == 0) {
                 
-                var brasil = new Pais("Brasil", "BR");
+                var brasil = new Pais();
+                brasil.setNome("Brasil");
+                brasil.setSigla("BR");
                 paisRepository.save(brasil);
 
-                var saoPauloEstado = new Estado("São Paulo", "SP", brasil);
+                var saoPauloEstado = new Estado();
+                saoPauloEstado.setNome("São Paulo");
+                saoPauloEstado.setSigla("SP");
+                saoPauloEstado.setPais(brasil);
                 estadoRepository.save(saoPauloEstado);
 
-                var jundiai = new Cidade("Jundiaí", saoPauloEstado);
+                var jundiai = new Cidade();
+                jundiai.setNome("Jundiaí");
+                jundiai.setEstado(saoPauloEstado);
                 cidadeRepository.save(jundiai);
 
                 var cliente = new Cliente();
