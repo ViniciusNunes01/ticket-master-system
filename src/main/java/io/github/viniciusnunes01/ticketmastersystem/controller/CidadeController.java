@@ -12,7 +12,7 @@ import io.github.viniciusnunes01.ticketmastersystem.model.Cidade;
 import io.github.viniciusnunes01.ticketmastersystem.service.CidadeService;
 
 @RestController
-@RequestMapping("/cidade")
+@RequestMapping("/api/cidades")
 public class CidadeController {
 
 	private final CidadeService cidadeService;

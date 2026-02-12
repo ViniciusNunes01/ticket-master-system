@@ -12,7 +12,7 @@ import io.github.viniciusnunes01.ticketmastersystem.model.Pais;
 import io.github.viniciusnunes01.ticketmastersystem.service.PaisService;
 
 @RestController
-@RequestMapping("/pais")
+@RequestMapping("/api/paises")
 public class PaisController {
 
 	private final PaisService paisService;

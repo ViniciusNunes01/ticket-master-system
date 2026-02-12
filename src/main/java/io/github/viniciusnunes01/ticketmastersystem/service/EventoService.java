@@ -4,29 +4,34 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import io.github.viniciusnunes01.ticketmastersystem.dto.EventoDTO;
 import io.github.viniciusnunes01.ticketmastersystem.exception.ResourceNotFoundException;
+import io.github.viniciusnunes01.ticketmastersystem.mapper.EventoMapper;
 import io.github.viniciusnunes01.ticketmastersystem.model.Evento;
 import io.github.viniciusnunes01.ticketmastersystem.repository.EventoRepository;
+import lombok.RequiredArgsConstructor;
 
 @Service
+@RequiredArgsConstructor
 public class EventoService {
 
 	private final EventoRepository eventoRepository;
+	private final EventoMapper eventoMapper;
 
-	public EventoService(EventoRepository eventoRepository) {
-		this.eventoRepository = eventoRepository;
+	public EventoDTO salvar(EventoDTO dto) {
+
+		Evento evento = eventoMapper.toEntity(dto);
+		evento = eventoRepository.save(evento);
+		return eventoMapper.toDTO(evento);
 	}
 
-	public Evento salvar(Evento evento) {
-		return eventoRepository.save(evento);
+	public List<EventoDTO> listarTodos() {
+		return eventoRepository.findAll().stream().map(eventoMapper::toDTO).toList();
 	}
 
-	public List<Evento> listarTodos() {
-		return eventoRepository.findAll();
-	}
-
-	public Evento buscarPorId(Integer id) {
-		return eventoRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Evento não encontrado!"));
-	}
-
+	public EventoDTO buscarPorId(Integer id) {
+        return eventoRepository.findById(id)
+                .map(eventoMapper::toDTO)
+                .orElseThrow(() -> new ResourceNotFoundException("Evento não encontrado! ID: " + id));
+    }
 }
