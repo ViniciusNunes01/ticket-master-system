@@ -35,11 +35,9 @@ public class EventoController {
 
 	@GetMapping("/{id}")
 	public ResponseEntity<Evento> buscarPorId(@PathVariable Integer id) {
-		try {
-			Evento evento = eventoService.buscarPorId(id);
-			return ResponseEntity.ok(evento);
-		} catch (RuntimeException e) {
-			return ResponseEntity.notFound().build();
-		}
+
+		Evento evento = eventoService.buscarPorId(id);
+		return ResponseEntity.ok(evento);
+
 	}
 }

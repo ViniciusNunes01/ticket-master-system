@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import io.github.viniciusnunes01.ticketmastersystem.exception.ResourceNotFoundException;
 import io.github.viniciusnunes01.ticketmastersystem.model.Cliente;
 import io.github.viniciusnunes01.ticketmastersystem.model.Evento;
 import io.github.viniciusnunes01.ticketmastersystem.model.Ingresso;
@@ -25,6 +26,12 @@ public class IngressoService {
 
 	@Transactional
 	public Ingresso comprarIngresso(Evento evento, Cliente cliente) {
+		
+		long ingressosComprados = ingressoRepository.countByClienteAndEvento(cliente, evento);
+		
+		if(ingressosComprados >= 5) {
+			throw new IllegalArgumentException("Não é possível comprar mais que 5 ingressos por pessoa!");
+		}
 
 		if (evento.getIngressosRestantes() <= 0) {
 			throw new IllegalArgumentException("Ingressos esgotados!");
@@ -46,7 +53,7 @@ public class IngressoService {
 	public void cancelarCompraIngresso(Integer idIngresso) {
 
 		Ingresso ingresso = ingressoRepository.findById(idIngresso)
-				.orElseThrow(() -> new RuntimeException("Ingresso não encontrado!"));
+				.orElseThrow(() -> new ResourceNotFoundException("Ingresso não encontrado!"));
 
 		Evento evento = ingresso.getEvento();
 

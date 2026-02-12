@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.github.viniciusnunes01.ticketmastersystem.dto.CompraDTO;
+import io.github.viniciusnunes01.ticketmastersystem.exception.ResourceNotFoundException;
 import io.github.viniciusnunes01.ticketmastersystem.model.Cliente;
 import io.github.viniciusnunes01.ticketmastersystem.model.Evento;
 import io.github.viniciusnunes01.ticketmastersystem.model.Ingresso;
@@ -39,35 +40,26 @@ public class IngressoController {
 	public ResponseEntity<Object> comprar(@RequestBody CompraDTO compraDTO) {
 
 		Cliente cliente = clienteRepository.findById(compraDTO.getIdCliente())
-				.orElseThrow(() -> new RuntimeException("Cliente não encontrado!"));
+				.orElseThrow(() -> new ResourceNotFoundException("Cliente não encontrado!"));
 
 		Evento evento = eventoRepository.findById(compraDTO.getIdEvento())
-				.orElseThrow(() -> new RuntimeException("Evento não encontrado!"));
+				.orElseThrow(() -> new ResourceNotFoundException("Evento não encontrado!"));
 
-		try {
-			Ingresso novoIngresso = ingressoService.comprarIngresso(evento, cliente);
-			return ResponseEntity.ok(novoIngresso);
-		} catch (IllegalArgumentException e) {
-			return ResponseEntity.badRequest().body(e.getMessage());
-		}
+		Ingresso novoIngresso = ingressoService.comprarIngresso(evento, cliente);
+		return ResponseEntity.ok(novoIngresso);
 
 	}
 
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Void> removerCompra(@PathVariable("id") Integer idIngresso) {
 
-		try {
-			ingressoService.cancelarCompraIngresso(idIngresso);
-			return ResponseEntity.noContent().build();
-
-		} catch (RuntimeException e) {
-			return ResponseEntity.notFound().build();
-		}
+		ingressoService.cancelarCompraIngresso(idIngresso);
+		return ResponseEntity.noContent().build();
 
 	}
-	
+
 	@GetMapping
-	public List<Ingresso> listarIngressos(){
+	public List<Ingresso> listarIngressos() {
 		return ingressoService.listarTodos();
 	}
 

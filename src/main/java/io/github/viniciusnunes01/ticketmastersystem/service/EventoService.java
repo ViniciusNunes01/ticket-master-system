@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import io.github.viniciusnunes01.ticketmastersystem.exception.ResourceNotFoundException;
 import io.github.viniciusnunes01.ticketmastersystem.model.Evento;
 import io.github.viniciusnunes01.ticketmastersystem.repository.EventoRepository;
 
@@ -25,7 +26,7 @@ public class EventoService {
 	}
 
 	public Evento buscarPorId(Integer id) {
-		return eventoRepository.findById(id).orElseThrow(() -> new RuntimeException("Evento não encontrado!"));
+		return eventoRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Evento não encontrado!"));
 	}
 
 }
