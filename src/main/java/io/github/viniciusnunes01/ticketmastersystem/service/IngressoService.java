@@ -1,6 +1,7 @@
 package io.github.viniciusnunes01.ticketmastersystem.service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import org.springframework.stereotype.Service;
 
@@ -39,5 +40,23 @@ public class IngressoService {
 		ingresso.setDataCompra(LocalDateTime.now());
 
 		return ingressoRepository.save(ingresso);
+	}
+
+	@Transactional
+	public void cancelarCompraIngresso(Integer idIngresso) {
+
+		Ingresso ingresso = ingressoRepository.findById(idIngresso)
+				.orElseThrow(() -> new RuntimeException("Ingresso não encontrado!"));
+
+		Evento evento = ingresso.getEvento();
+
+		evento.setIngressosRestantes(evento.getIngressosRestantes() + 1);
+		eventoRepository.save(evento);
+
+		ingressoRepository.delete(ingresso);
+	}
+	
+	public List<Ingresso> listarTodos(){
+		return ingressoRepository.findAll();
 	}
 }
