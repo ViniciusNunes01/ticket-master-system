@@ -13,9 +13,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import io.github.viniciusnunes01.ticketmastersystem.dto.ClienteDTO;
 import io.github.viniciusnunes01.ticketmastersystem.service.ClienteService;
+import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("/api/clientes")
+@RequestMapping("/clientes")
 public class ClienteController {
 
 	private final ClienteService clienteService;
@@ -25,7 +26,7 @@ public class ClienteController {
 	}
 
 	@PostMapping
-	public ResponseEntity<ClienteDTO> cadastrarCliente(@RequestBody ClienteDTO clienteDTO) {
+	public ResponseEntity<ClienteDTO> cadastrarCliente(@RequestBody @Valid ClienteDTO clienteDTO) {
 		ClienteDTO novoCliente = clienteService.salvar(clienteDTO);
 		return ResponseEntity.status(HttpStatus.CREATED).body(novoCliente);
 	}

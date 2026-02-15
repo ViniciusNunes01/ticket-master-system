@@ -12,7 +12,7 @@ import io.github.viniciusnunes01.ticketmastersystem.model.Estado;
 import io.github.viniciusnunes01.ticketmastersystem.service.EstadoService;
 
 @RestController
-@RequestMapping("/api/estados")
+@RequestMapping("/estados")
 public class EstadoController {
 
 	private final EstadoService estadoService;

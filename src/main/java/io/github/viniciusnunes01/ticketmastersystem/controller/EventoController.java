@@ -15,7 +15,7 @@ import io.github.viniciusnunes01.ticketmastersystem.dto.EventoDTO;
 import io.github.viniciusnunes01.ticketmastersystem.service.EventoService;
 
 @RestController
-@RequestMapping("/api/eventos")
+@RequestMapping("/eventos")
 public class EventoController {
 
 	private final EventoService eventoService;
