@@ -12,7 +12,7 @@ import io.github.viniciusnunes01.ticketmastersystem.model.Pais;
 import io.github.viniciusnunes01.ticketmastersystem.service.PaisService;
 
 @RestController
-@RequestMapping("/api/paises")
+@RequestMapping("/paises")
 public class PaisController {
 
 	private final PaisService paisService;
@@ -20,14 +20,14 @@ public class PaisController {
 	public PaisController(PaisService paisService) {
 		this.paisService = paisService;
 	}
-	
+
 	@PostMapping
 	public Pais cadastrarPais(@RequestBody Pais pais) {
 		return paisService.salvar(pais);
 	}
-	
+
 	@GetMapping
-	public List<Pais> listarPais(){
+	public List<Pais> listarPais() {
 		return paisService.listarTodos();
 	}
 
